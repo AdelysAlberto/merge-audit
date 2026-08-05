@@ -1,0 +1,102 @@
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 20px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  -webkit-app-region: drag;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoBadge {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.brandTitle {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.controlsGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-right: 110px;
+  -webkit-app-region: no-drag;
+}
+
+.projectSelect {
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.projectSelect:hover {
+  border-color: var(--border-highlight);
+}
+
+.searchInput {
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  width: 260px;
+  transition: var(--transition-fast);
+}
+
+.searchInput:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 8px var(--accent-cyan-glow);
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+
+.actionBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--border-highlight);
+}
+
+.settingsBtn {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(6, 182, 212, 0.2));
+  border: 1px solid var(--accent-purple-glow);
+  color: #fff;
+}
+
+.settingsBtn:hover {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(6, 182, 212, 0.4));
+  border-color: var(--accent-purple);
+}

@@ -1,0 +1,113 @@
+.cardContainer {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.statusValid {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.statusInvalid {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  border: 1px solid rgba(255, 23, 68, 0.3);
+}
+
+.breakdownGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gridLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.gridValue {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.reasonBox {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  border: 1px solid rgba(255, 23, 68, 0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.commitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.commitRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+}
+
+.commitSha {
+  font-family: var(--font-mono);
+  color: var(--accent-purple);
+  font-size: 0.75rem;
+}
+
+.commitMsg {
+  flex: 1;
+  margin: 0 12px;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

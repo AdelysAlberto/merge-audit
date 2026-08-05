@@ -1,0 +1,67 @@
+{
+  "app": {
+    "title": "merge-audit",
+    "subtitle": "GitLab AI MR Reviewer & Orchestrator"
+  },
+  "header": {
+    "selectProject": "Proyecto:",
+    "settings": "Configurar",
+    "refresh": "Refrescar MRs",
+    "searchPlaceholder": "Buscar por TaskId (#259257), autor o título..."
+  },
+  "settingsModal": {
+    "title": "Configuración del Sistema",
+    "tabGitLab": "Proyectos GitLab",
+    "tabAi": "Proveedor de IA",
+    "tabRules": "Reglas (.md)",
+    "save": "Guardar Cambios",
+    "close": "Cerrar",
+    "gitlabHost": "GitLab Host URL:",
+    "gitlabToken": "Personal Access Token (PAT):",
+    "gitlabProjects": "Proyectos Configurados:",
+    "addProject": "+ Agregar Proyecto",
+    "aiProvider": "Proveedor de IA:",
+    "aiApiKey": "API Key:",
+    "aiModel": "Nombre del Modelo:",
+    "aiBaseUrl": "Base URL (opcional para Ollama / Proxy):",
+    "rulesDirectory": "Directorio de Reglas (.md):",
+    "rulesDescription": "Agregue archivos markdown (.md) con reglas de revisión o pautas de código. La IA los aplicará automáticamente.",
+    "addRuleBtn": "➕ Importar Archivo de Regla .md",
+    "noRules": "No hay reglas .md cargadas en la carpeta."
+  },
+  "mrList": {
+    "openMrs": "Merge Requests Abiertas",
+    "noMrs": "No se encontraron Merge Requests abiertas.",
+    "pipelineSuccess": "Pipeline exitoso",
+    "pipelineFailed": "Pipeline fallido",
+    "pipelineRunning": "Pipeline en ejecución",
+    "validConvention": "Convención Válida",
+    "invalidConvention": "Infracción de Reglas"
+  },
+  "audit": {
+    "titleAudit": "Auditoría de Convención de Título",
+    "commitAudit": "Auditoría de Commits",
+    "mrTitleValid": "El título del MR cumple con el estándar #TaskId [Portal] [Module] [Type]",
+    "mrTitleInvalid": "El título no cumple con la norma estandarizada del equipo.",
+    "allCommitsValid": "Todos los commits cumplen con la convención #TaskId type: description",
+    "invalidCommits": "Se detectaron commits fuera de la convención estandarizada."
+  },
+  "aiReport": {
+    "evaluateBtn": "✨ Analizar con IA",
+    "approveBtn": "✓ Aprobar MR",
+    "mergeBtn": "🔀 Merge MR",
+    "confidenceScore": "Score de Confianza IA",
+    "summary": "Resumen Ejecutivo",
+    "risks": "Riesgos & Sugerencias",
+    "rulesViolations": "Violaciones a Reglas .md Locales",
+    "highlights": "Aspectos Destacados",
+    "evaluating": "Evaluando diffs y reglas con IA...",
+    "noEvaluationYet": "Seleccione un MR y haga clic en 'Analizar con IA' para obtener el reporte."
+  },
+  "terminal": {
+    "title": "Terminal de Logs en Vivo",
+    "toggle": "Terminal Logs",
+    "clear": "Limpiar Consola",
+    "autoscroll": "Auto-scroll"
+  }
+}

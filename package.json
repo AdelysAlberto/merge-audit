@@ -1,0 +1,70 @@
+{
+  "dependencies": {
+    "axios": "^1.7.9",
+    "clsx": "^2.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.5"
+  },
+  "description": "GitLab AI MR Reviewer & Orchestrator with Title/Commit Convention Auditing and Multi-AI Provider Support",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^33.2.1",
+    "electron-builder": "^26.15.3",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vite-plugin-electron": "^0.29.0",
+    "vite-plugin-electron-renderer": "^0.14.6"
+  },
+  "main": "dist-electron/index.js",
+  "name": "merge-audit",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "fix": "biome check --write ./src",
+    "lint": "biome check ./src",
+    "app:dev": "ELECTRON_DISABLE_SANDBOX=1 vite",
+    "typecheck": "tsc --noEmit",
+    "dist": "pnpm build && electron-builder",
+    "dist:linux": "pnpm build && electron-builder --linux deb AppImage",
+    "dist:win": "pnpm build && electron-builder --win nsis portable"
+  },
+  "author": {
+    "name": "Adelys Belén",
+    "email": "adalbeca@sice.com"
+  },
+  "homepage": "http://bos-gitlab.sicemadrid.com",
+  "build": {
+    "appId": "com.sice.merge-audit",
+    "productName": "MergeAudit",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "maintainer": "Adelys Belén <adalbeca@sice.com>",
+      "category": "Development"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    }
+  },
+  "type": "module",
+  "version": "1.0.0"
+}

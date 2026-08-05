@@ -1,0 +1,131 @@
+.terminalDrawer {
+  background: var(--bg-terminal);
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 220px;
+  font-family: var(--font-mono);
+  transition: var(--transition-fast);
+}
+
+.terminalClosed {
+  height: 36px;
+}
+
+.terminalHeader {
+  height: 36px;
+  background: rgba(17, 24, 39, 0.9);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.titleArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.termTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.controlsArea {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.levelSelect {
+  background: #1e293b;
+  color: #f8fafc;
+  border: 1px solid var(--border-color);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  cursor: pointer;
+}
+
+.levelSelect option {
+  background-color: #0f172a;
+  color: #f8fafc;
+  padding: 6px 10px;
+}
+
+.termBtn {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.termBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-primary);
+}
+
+.logBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logLine {
+  font-size: 0.78rem;
+  line-height: 1.4;
+  display: flex;
+  gap: 10px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.logTime {
+  color: var(--text-muted);
+}
+
+.levelBadge {
+  font-weight: 700;
+  padding: 0 4px;
+  border-radius: 3px;
+  font-size: 0.7rem;
+}
+
+.lvlINFO {
+  color: var(--accent-cyan);
+}
+
+.lvlWARN {
+  color: var(--color-warning);
+}
+
+.lvlERROR {
+  color: var(--color-danger);
+}
+
+.lvlAI {
+  color: var(--accent-purple);
+}
+
+.lvlGITLAB {
+  color: #f97316;
+}
+
+.logScope {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.logMsg {
+  color: var(--text-primary);
+}
