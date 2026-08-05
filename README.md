@@ -1,21 +1,3 @@
-# 🚀 MergeAudit (`merge-audit`)
-
-**GitLab AI MR Reviewer & Orchestrator**
-*Aplicación de escritorio nativa para automatizar, auditar y elevar la calidad de los Merge Requests en GitLab.*
-
----
-
-## 📌 Nombres Propuestos para la Aplicación
-
-Si deseas renombrar la aplicación o elegir una identidad comercial/branding, aquí tienes una lista de propuestas categorizadas:
-
-1. **MergeAudit** *(Nombre actual de compilación)*: Directo, claro y profesional. Enfocado en la auditoría y cumplimiento de estándares en MRs.
-2. **GitLab MergePulse AI**: Destaca el monitoreo continuo en vivo y el análisis impulsado por inteligencia artificial.
-3. **PulseMR / MRPulse**: Nombre corto, dinámico y moderno. Transmite la idea de evaluar el "pulso" y estado de los Merge Requests.
-4. **GitSentry AI / GitReviewer**: Enfilado al control de calidad, seguridad y gobernanza de código.
-5. **PinkyMerge / PinkyReviewer**: Siguiendo la identidad y temáticas de agentes de desarrollo del ecosistema Team Pinky.
-
----
 
 ## 📖 Descripción General y Arquitectura Técnica
 gi
