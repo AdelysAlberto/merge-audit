@@ -22,14 +22,19 @@
   },
   "main": "dist-electron/index.js",
   "name": "merge-audit",
+  "bin": {
+    "vet": "dist-cli/cli/index.js"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && pnpm build:cli",
+    "build:cli": "tsc -p tsconfig.cli.json",
     "preview": "vite preview",
     "fix": "biome check --write ./src",
     "lint": "biome check ./src",
     "app:dev": "ELECTRON_DISABLE_SANDBOX=1 vite",
     "typecheck": "tsc --noEmit",
+    "vet:install": "node scripts/install-vet.mjs",
     "dist": "pnpm build && electron-builder",
     "dist:linux": "pnpm build && electron-builder --linux deb AppImage",
     "dist:win": "pnpm build && electron-builder --win nsis portable"
@@ -45,24 +50,14 @@
     "directories": {
       "output": "release"
     },
-    "files": [
-      "dist/**/*",
-      "dist-electron/**/*",
-      "package.json"
-    ],
+    "files": ["dist/**/*", "dist-electron/**/*", "package.json"],
     "linux": {
-      "target": [
-        "deb",
-        "AppImage"
-      ],
+      "target": ["deb", "AppImage"],
       "maintainer": "Adelys Belén <adalbeca@sice.com>",
       "category": "Development"
     },
     "win": {
-      "target": [
-        "nsis",
-        "portable"
-      ]
+      "target": ["nsis", "portable"]
     }
   },
   "type": "module",

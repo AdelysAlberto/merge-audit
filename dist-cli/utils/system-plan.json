@@ -1,0 +1,23 @@
+{
+    "reviewers": ["Adelys Belen", "Codechecker"],
+    "labels": ["Ready to Review"],
+    "obsidianPath": "/home/adalbeca/Documents/Obsidian/CEBOR",
+    "sprints": [
+        {
+            "number": 0,
+            "startDate": "2026-07-28"
+        },
+        {
+            "number": 2,
+            "startDate": "2026-08-18"
+        },
+        {
+            "number": 3,
+            "startDate": "2026-09-08"
+        },
+        {
+            "number": 4,
+            "startDate": "2026-09-22"
+        }
+    ]
+}

@@ -1,7 +1,8 @@
 
 ## 📖 Descripción General y Arquitectura Técnica
+
 gi
-**MergeAudit** es una aplicación de escritorio nativa desarrollada con **Electron**, **React** y **TypeScript**, diseñada para Tech Leads, revisores y equipos de desarrollo que utilizan GitLab. 
+**MergeAudit** es una aplicación de escritorio nativa desarrollada con **Electron**, **React** y **TypeScript**, diseñada para Tech Leads, revisores y equipos de desarrollo que utilizan GitLab.
 
 La herramienta conecta tus proyectos de GitLab (tanto cloud como self-hosted) con motores de Inteligencia Artificial (Google Gemini, OpenAI, Ollama/LLMs locales) y aplica un motor de auditoría estricto sobre convenciones de código y títulos de tareas.
 
@@ -31,12 +32,14 @@ Antes de instalar y ejecutar **MergeAudit**, asegúrate de contar con:
 ## 📦 Instalación y Configuración
 
 ### 1. Clonar el repositorio
+
 ```bash
 git clone <URL_DEL_REPOSITORIO>
 cd merge-audit
 ```
 
 ### 2. Instalar dependencias
+
 ```bash
 pnpm install
 ```
@@ -46,13 +49,35 @@ pnpm install
 ## 🚀 Uso en Desarrollo y Ejecución
 
 ### Ejecutar la aplicación en modo desarrollo
+
 Para iniciar la interfaz de React junto con el proceso principal de Electron y hot-reload:
 
 ```bash
 pnpm app:dev
 ```
 
+### CLI `vet`
+
+Para instalar el comando local del CLI:
+
+```bash
+pnpm vet:install
+```
+
+Comandos disponibles:
+
+```bash
+vet install
+vet check mr
+vet push
+vet update
+vet uninstall
+```
+
+La configuración dinámica del CLI vive en `src/utils/system-plan.json`.
+
 ### Verificación de Tipos y Linter
+
 ```bash
 # Verificación de tipos en TypeScript
 pnpm typecheck
@@ -69,17 +94,21 @@ pnpm fix
 La aplicación utiliza `electron-builder` para generar ejecutables nativos distribribuibles.
 
 ### Empaquetar para Linux (DEB y AppImage)
+
 ```bash
 pnpm dist:linux
 ```
+
 Los binarios se generarán en el directorio `release/`.
 
 ### Empaquetar para Windows (NSIS y Portable)
+
 ```bash
 pnpm dist:win
 ```
 
 ### Empaquetado genérico
+
 ```bash
 pnpm dist
 ```
