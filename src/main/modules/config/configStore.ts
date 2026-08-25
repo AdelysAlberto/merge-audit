@@ -1,8 +1,53 @@
 import fs from "fs";
 import os from "os";
 import path from "path";
-import { type Result, err, ok } from "../../../shared/types/result.js";
-import { type AppConfig, defaultConfig } from "./configTypes.js";
+import {type Result, err, ok} from "../../../shared/types/result.js";
+import {
+  COPILOT_BASE_URL,
+  COPILOT_MODEL,
+  COPILOT_TOKEN_IA,
+  ENV_AI_MODEL,
+  ENV_AI_PROVIDER,
+  GITLAB_TOKEN,
+  USE_GITLAB_TOKEN_FOR_COPILOT,
+} from "../../../utils/conf.js";
+import {type AppConfig, defaultConfig} from "./configTypes.js";
+
+const resolveAiModel = (provider: AppConfig["ai"]["provider"], currentModel: string): string => {
+  if (ENV_AI_MODEL) {
+    return ENV_AI_MODEL;
+  }
+  if (provider === "copilot") {
+    return COPILOT_MODEL;
+  }
+  return currentModel;
+};
+
+const applyAiEnvOverrides = (ai: AppConfig["ai"], gitlabToken?: string): AppConfig["ai"] => {
+  const provider = ENV_AI_PROVIDER || ai.provider;
+  const normalized = {
+    ...ai,
+    provider,
+  };
+
+  if (provider === "copilot") {
+    const copilotApiKey = USE_GITLAB_TOKEN_FOR_COPILOT
+      ? gitlabToken || COPILOT_TOKEN_IA || normalized.apiKey
+      : COPILOT_TOKEN_IA || gitlabToken || normalized.apiKey;
+
+    return {
+      ...normalized,
+      apiKey: copilotApiKey,
+      baseUrl: normalized.baseUrl || COPILOT_BASE_URL,
+      model: resolveAiModel(provider, normalized.model),
+    };
+  }
+
+  return {
+    ...normalized,
+    model: resolveAiModel(provider, normalized.model),
+  };
+};
 
 const getConfigDir = (): string => {
   const homeDir = os.homedir();
@@ -36,6 +81,13 @@ export const loadConfig = (): Result<AppConfig, string> => {
     if (!fs.existsSync(configFile)) {
       const initialConfig: AppConfig = {
         ...defaultConfig,
+        gitlab: {
+          ...defaultConfig.gitlab,
+          token: defaultConfig.gitlab.token || GITLAB_TOKEN,
+        },
+        ai: {
+          ...applyAiEnvOverrides(defaultConfig.ai, defaultConfig.gitlab.token || GITLAB_TOKEN),
+        },
         rulesDirectoryPath: path.join(getConfigDir(), "rules"),
       };
       fs.writeFileSync(configFile, JSON.stringify(initialConfig, null, 2), "utf-8");
@@ -43,6 +95,8 @@ export const loadConfig = (): Result<AppConfig, string> => {
     }
     const data = fs.readFileSync(configFile, "utf-8");
     const parsed = JSON.parse(data) as AppConfig;
+    parsed.gitlab.token = parsed.gitlab.token || GITLAB_TOKEN;
+    parsed.ai = applyAiEnvOverrides(parsed.ai, parsed.gitlab.token);
     if (!parsed.rulesDirectoryPath) {
       parsed.rulesDirectoryPath = path.join(getConfigDir(), "rules");
     }

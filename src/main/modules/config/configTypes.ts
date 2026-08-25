@@ -11,7 +11,7 @@ export interface AppConfig {
     activeProjectId?: string;
   };
   ai: {
-    provider: "gemini" | "openai" | "ollama";
+    provider: "gemini" | "openai" | "ollama" | "copilot";
     apiKey: string;
     model: string;
     baseUrl?: string;
