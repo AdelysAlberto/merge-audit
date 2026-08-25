@@ -154,7 +154,7 @@ const formatMrBlock = (mr: CliMr): string => {
 };
 
 const formatObsidianEntry = (mr: CliMr): string => {
-  return [`${mr.title}`, `${mr.link}`, `${mr.author}`].join("\n");
+  return [`${mr.link}`, `${mr.title}`, `${mr.author}`].join("\n");
 };
 
 const readExistingMrIds = (filePath: string): Set<string> => {
