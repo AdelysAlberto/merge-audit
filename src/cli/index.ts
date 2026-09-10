@@ -137,7 +137,9 @@ const matchesPlanFilters = (mr: GitLabMergeRequest, plan: SystemPlan): boolean =
   const allowedReviewers = plan.reviewers;
   const allowedLabels = new Set(plan.labels.map(normalizeText));
   const reviewerMatch = (mr.reviewers ?? []).some((reviewer) =>
-    allowedReviewers.some((allowedReviewer) => matchesReviewerAlias(reviewer.name, allowedReviewer)),
+    allowedReviewers.some((allowedReviewer) =>
+      matchesReviewerAlias(reviewer.name, allowedReviewer),
+    ),
   );
   const labelMatch = (mr.labels ?? []).some((label) => allowedLabels.has(normalizeText(label)));
   return reviewerMatch && labelMatch;
@@ -275,7 +277,19 @@ const ensureCliBuild = (): void => {
 const installCli = (): void => {
   ensureCliBuild();
   mkdirSync(wrapperDirectory, { recursive: true });
-  const wrapperContent = ["#!/usr/bin/env bash", `node "${cliEntrypointPath}" "$@"`].join("\n");
+  const wrapperContent = [
+    "#!/usr/bin/env bash",
+    `REPO_DIR="${repoRoot}"`,
+    `ENTRYPOINT="${cliEntrypointPath}"`,
+    "",
+    'if [ -d "$REPO_DIR/src" ]; then',
+    '  if [ ! -f "$ENTRYPOINT" ] || [ -n "$(find "$REPO_DIR/src" -type f -newer "$ENTRYPOINT" 2>/dev/null)" ]; then',
+    '    (cd "$REPO_DIR" && pnpm --silent build:cli >/dev/null 2>&1)',
+    "  fi",
+    "fi",
+    "",
+    'exec node "$ENTRYPOINT" "$@"',
+  ].join("\n");
   writeFileSync(wrapperPath, `${wrapperContent}\n`, { encoding: "utf-8", mode: 0o755 });
   output.write(`Comando instalado en ${wrapperPath}\n`);
 };

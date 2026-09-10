@@ -2,7 +2,7 @@ import fs from "fs";
 import os from "os";
 import path from "path";
 import { err, ok } from "../../../shared/types/result.js";
-import { COPILOT_BASE_URL, COPILOT_MODEL, COPILOT_TOKEN_IA, ENV_AI_MODEL, ENV_AI_PROVIDER, GITLAB_TOKEN, USE_GITLAB_TOKEN_FOR_COPILOT, } from "../../../utils/conf.js";
+import { COPILOT_BASE_URL, COPILOT_MODEL, COPILOT_TOKEN_IA, ENV_AI_MODEL, ENV_AI_PROVIDER, GITLAB_HOST_URL, GITLAB_TOKEN, USE_GITLAB_TOKEN_FOR_COPILOT, } from "../../../utils/conf.js";
 import { defaultConfig } from "./configTypes.js";
 const resolveAiModel = (provider, currentModel) => {
     if (ENV_AI_MODEL) {
@@ -79,8 +79,21 @@ export const loadConfig = () => {
         }
         const data = fs.readFileSync(configFile, "utf-8");
         const parsed = JSON.parse(data);
-        parsed.gitlab.token = parsed.gitlab.token || GITLAB_TOKEN;
+        const originalToken = parsed.gitlab?.token;
+        parsed.gitlab.token = GITLAB_TOKEN || parsed.gitlab.token;
+        if (GITLAB_HOST_URL &&
+            (!parsed.gitlab.hostUrl || parsed.gitlab.hostUrl === "https://gitlab.com")) {
+            parsed.gitlab.hostUrl = GITLAB_HOST_URL;
+        }
         parsed.ai = applyAiEnvOverrides(parsed.ai, parsed.gitlab.token);
+        if (GITLAB_TOKEN && originalToken !== GITLAB_TOKEN) {
+            try {
+                fs.writeFileSync(configFile, JSON.stringify(parsed, null, 2), "utf-8");
+            }
+            catch {
+                // Silently continue
+            }
+        }
         if (!parsed.rulesDirectoryPath) {
             parsed.rulesDirectoryPath = path.join(getConfigDir(), "rules");
         }

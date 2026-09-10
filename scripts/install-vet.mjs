@@ -1,5 +1,5 @@
-import { execFileSync } from "node:child_process";
-import { mkdirSync, writeFileSync } from "node:fs";
+import {execFileSync} from "node:child_process";
+import {mkdirSync, writeFileSync} from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
@@ -13,8 +13,21 @@ execFileSync("pnpm", ["exec", "tsc", "-p", "tsconfig.cli.json"], {
   stdio: "inherit",
 });
 
+const wrapperContent = `#!/usr/bin/env bash
+REPO_DIR="${repoRoot}"
+ENTRYPOINT="${cliEntrypointPath}"
+
+if [ -d "$REPO_DIR/src" ]; then
+  if [ ! -f "$ENTRYPOINT" ] || [ -n "$(find "$REPO_DIR/src" -type f -newer "$ENTRYPOINT" 2>/dev/null)" ]; then
+    (cd "$REPO_DIR" && pnpm --silent build:cli >/dev/null 2>&1)
+  fi
+fi
+
+exec node "$ENTRYPOINT" "$@"
+`;
+
 mkdirSync(wrapperDirectory, { recursive: true });
-writeFileSync(wrapperPath, `#!/usr/bin/env bash\nnode "${cliEntrypointPath}" "$@"\n`, {
+writeFileSync(wrapperPath, wrapperContent, {
   encoding: "utf-8",
   mode: 0o755,
 });

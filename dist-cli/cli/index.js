@@ -107,7 +107,7 @@ const formatMrBlock = (mr) => {
     ].join("\n");
 };
 const formatObsidianEntry = (mr) => {
-    return [`${mr.title}`, `${mr.link}`, `${mr.author}`].join("\n");
+    return [`${mr.link}`, `${mr.title}`, `${mr.author}`].join("\n");
 };
 const readExistingMrIds = (filePath) => {
     if (!existsSync(filePath)) {
@@ -207,7 +207,19 @@ const ensureCliBuild = () => {
 const installCli = () => {
     ensureCliBuild();
     mkdirSync(wrapperDirectory, { recursive: true });
-    const wrapperContent = ["#!/usr/bin/env bash", `node "${cliEntrypointPath}" "$@"`].join("\n");
+    const wrapperContent = [
+        "#!/usr/bin/env bash",
+        `REPO_DIR="${repoRoot}"`,
+        `ENTRYPOINT="${cliEntrypointPath}"`,
+        "",
+        'if [ -d "$REPO_DIR/src" ]; then',
+        '  if [ ! -f "$ENTRYPOINT" ] || [ -n "$(find "$REPO_DIR/src" -type f -newer "$ENTRYPOINT" 2>/dev/null)" ]; then',
+        '    (cd "$REPO_DIR" && pnpm --silent build:cli >/dev/null 2>&1)',
+        "  fi",
+        "fi",
+        "",
+        'exec node "$ENTRYPOINT" "$@"',
+    ].join("\n");
     writeFileSync(wrapperPath, `${wrapperContent}\n`, { encoding: "utf-8", mode: 0o755 });
     output.write(`Comando instalado en ${wrapperPath}\n`);
 };

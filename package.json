@@ -29,6 +29,7 @@
     "dev": "vite",
     "build": "tsc && vite build && pnpm build:cli",
     "build:cli": "tsc -p tsconfig.cli.json",
+    "dev:cli": "tsc -p tsconfig.cli.json --watch",
     "preview": "vite preview",
     "fix": "biome check --write ./src",
     "lint": "biome check ./src",

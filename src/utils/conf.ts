@@ -1,9 +1,29 @@
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
+import {fileURLToPath} from "node:url";
+
+const findEnvFile = (): string | null => {
+  const currentDir = path.dirname(fileURLToPath(import.meta.url));
+  const candidates = [
+    path.resolve(process.cwd(), ".env"),
+    path.resolve(currentDir, "../../.env"),
+    path.resolve(currentDir, "../../../.env"),
+    path.resolve(currentDir, "../.env"),
+    path.resolve(os.homedir(), ".config/merge-audit/.env"),
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+  return null;
+};
 
 const loadEnvFromFile = (): void => {
-  const envFilePath = path.resolve(process.cwd(), ".env");
-  if (!fs.existsSync(envFilePath)) {
+  const envFilePath = findEnvFile();
+  if (!envFilePath) {
     return;
   }
 
@@ -25,9 +45,7 @@ const loadEnvFromFile = (): void => {
     const valueWithQuotes = line.slice(separatorIndex + 1).trim();
     const value = valueWithQuotes.replace(/^['\"]|['\"]$/g, "");
 
-    if (process.env[key] === undefined) {
-      process.env[key] = value;
-    }
+    process.env[key] = value;
   }
 };
 
@@ -64,6 +82,8 @@ const readAiProvider = (): AiProvider | "" => {
 };
 
 export const GITLAB_TOKEN = readEnvAny(["MERGE_AUDIT_GITLAB_TOKEN", "GITLAB_TOKEN"]);
+export const GITLAB_HOST_URL =
+  readEnvAny(["MERGE_AUDIT_GITLAB_HOST", "GITLAB_HOST_URL"]) || "http://bos-gitlab.sicemadrid.com";
 export const COPILOT_TOKEN_IA = readEnvAny(["MERGE_AUDIT_COPILOT_TOKEN", "COPILOT_TOKEN_IA"]);
 export const COPILOT_BASE_URL =
   readEnv("MERGE_AUDIT_COPILOT_BASE_URL") || "https://sice-tys.ghe.com/api/v3/copilot";
